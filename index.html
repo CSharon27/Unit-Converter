@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnitFlow - Professional Unit Converter</title>
+    <meta name="description" content="Convert anything instantly with UnitFlow. A professional, real-time multi-category unit converter for length, weight, temperature, and more.">
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (via CDN for simplicity as per requirements for no external heavy libs, just icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <i data-lucide="layers"></i>
+                <span>UnitFlow</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#converter">Converter</a>
+                <a href="#about">About</a>
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <i data-lucide="moon" class="moon-icon"></i>
+                    <i data-lucide="sun" class="sun-icon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <h1>Convert Anything. <br><span class="gradient-text">Instantly.</span></h1>
+                    <p>Experience precise, real-time conversions across dozens of units. Professional tools for everyday needs, designed for speed and accuracy.</p>
+                    <div class="hero-actions">
+                        <a href="#converter" class="btn btn-primary">Start Converting</a>
+                        <a href="#about" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-illustration">
+                    <!-- Simple CSS/SVG Illustration -->
+                    <div class="glass-card illustration-card">
+                        <div class="icon-grid">
+                            <i data-lucide="ruler"></i>
+                            <i data-lucide="weight"></i>
+                            <i data-lucide="thermometer"></i>
+                            <i data-lucide="database"></i>
+                        </div>
+                        <div class="pulse-ring"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container grid-3">
+                <div class="feature-card">
+                    <i data-lucide="zap"></i>
+                    <h3>Real-Time Conversion</h3>
+                    <p>Results update instantly as you type. No reload, no waiting.</p>
+                </div>
+                <div class="feature-card">
+                    <i data-lucide="layout"></i>
+                    <h3>Multiple Categories</h3>
+                    <p>Length, Weight, Temp, Data, Speed, and more in one place.</p>
+                </div>
+                <div class="feature-card">
+                    <i data-lucide="check-circle"></i>
+                    <h3>High Accuracy</h3>
+                    <p>Precise formulas and floating-point handling for professional use.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Converter Tool Section -->
+        <section id="converter" class="converter-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Professional Converter</h2>
+                    <p>Select a category and start your conversion</p>
+                </div>
+
+                <div class="converter-container glass-card">
+                    <div class="converter-form">
+                        <div class="form-group category-group">
+                            <label for="category">Category</label>
+                            <div class="select-wrapper">
+                                <select id="category">
+                                    <option value="length">Length</option>
+                                    <option value="weight">Weight</option>
+                                    <option value="temperature">Temperature</option>
+                                    <option value="area">Area</option>
+                                    <option value="volume">Volume</option>
+                                    <option value="speed">Speed</option>
+                                    <option value="time">Time</option>
+                                    <option value="data">Data Transfer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="conversion-grid">
+                            <div class="form-group">
+                                <label for="from-value">From</label>
+                                <input type="number" id="from-value" placeholder="0.00" step="any">
+                                <div class="select-wrapper mt-sm">
+                                    <select id="from-unit"></select>
+                                </div>
+                            </div>
+
+                            <div class="swap-action">
+                                <button id="swap-btn" title="Swap Units">
+                                    <i data-lucide="repeat"></i>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="to-value">To</label>
+                                <input type="text" id="to-value" placeholder="0.00" readonly>
+                                <div class="select-wrapper mt-sm">
+                                    <select id="to-unit"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="converter-footer">
+                            <div class="precision-control">
+                                <label for="precision">Precision (Decimals)</label>
+                                <input type="range" id="precision" min="0" max="10" value="2">
+                                <span id="precision-val">2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="result-message" class="result-display">
+                        <span id="formula-text">1 Unit = X Other Units</span>
+                    </div>
+                </div>
+
+                <!-- History Section -->
+                <div class="history-container mt-lg">
+                    <h3>Recent Conversions</h3>
+                    <div id="history-list" class="history-list">
+                        <p class="empty-msg">No recent conversions</p>
+                    </div>
+                    <button id="clear-history" class="btn btn-text mt-sm">Clear History</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Why UnitFlow?</h2>
+                        <p>UnitFlow is built for professionals and students who need quick, reliable unit conversions without the clutter. Our core engine uses high-precision formulas to ensure that every conversion—from simple meters-to-feet to complex temperature scales—is mathematically accurate.</p>
+                        <ul class="check-list">
+                            <li><i data-lucide="check"></i> 100% Client-side processing</li>
+                            <li><i data-lucide="check"></i> Dark and Light mode support</li>
+                            <li><i data-lucide="check"></i> Privacy-focused (Local storage usage)</li>
+                        </ul>
+                    </div>
+                    <div class="about-stats glass-card">
+                        <div class="stat-item">
+                            <span class="stat-num">8+</span>
+                            <span class="stat-label">Categories</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">50+</span>
+                            <span class="stat-label">Units</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">∞</span>
+                            <span class="stat-label">Possibilities</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i data-lucide="layers"></i>
+                        <span>UnitFlow</span>
+                    </div>
+                    <p>The ultimate tool for instant conversions. Modern, fast, and professional.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#converter">Converter</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i data-lucide="github"></i></a>
+                        <a href="#"><i data-lucide="twitter"></i></a>
+                        <a href="#"><i data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-bottom">
+                <p>&copy; 2024 UnitFlow. All rights reserved.</p>
+                <button id="back-to-top" title="Back to Top">
+                    <i data-lucide="chevron-up"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
